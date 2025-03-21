@@ -8,6 +8,7 @@ import { IUsuario } from '../../interfaces/iusuario.interface';
   templateUrl: './card-usuario.component.html',
   styleUrl: './card-usuario.component.css'
 })
+
 export class CardUsuarioComponent {
   @Input() miUsuario!:IUsuario
 }

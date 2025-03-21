@@ -14,6 +14,7 @@ export class UsuariosService {
 
   getAllObservable() : Observable<IRresponse> {
     // Petición asíncrona nativa de Angular
+    console.log("Obteniendo respuesta del API de usuarios...")
     return this.httpClient.get<IRresponse>(this.baseUrl)
   }
 }

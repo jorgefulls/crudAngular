@@ -1,15 +1,11 @@
-<p>listado-usuarios works!</p>
-
-
-<section class="usuarios">
-    <div class="row">
+<section class="container">
+    <div class="row justify-content-center g-5">
+        <!-- Recorrer el array de usuarios devuelto por el Servicio -->
         @for(usuario of arrUsuariosObservable; track usuario._id) {
             <article class="col-12 col-md-6 col-lg-3">
-                <app-card-usuario [miUsuario]="usuario">
-                </app-card-usuario>
+                <app-card-usuario [miUsuario]="usuario"></app-card-usuario>
             </article>
         }
-
     </div>
 </section>
 

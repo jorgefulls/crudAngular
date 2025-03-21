@@ -1,0 +1,8 @@
+.imagenesUsuario {
+    min-height: 150px;
+    max-height: 150px;
+    object-position: center center;
+    object-fit: contain;
+    display: block;
+
+}

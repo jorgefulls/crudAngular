@@ -14,7 +14,11 @@ export class UsuariosService {
 
   getAllObservable() : Observable<IRresponse> {
     // Petición asíncrona nativa de Angular
-    console.log("Obteniendo respuesta del API de usuarios...")
     return this.httpClient.get<IRresponse>(this.baseUrl)
+  }
+
+  getAllObservableN(numPagina: string) : Observable<IRresponse> {
+    // Petición asíncrona nativa de Angular utilizando un parámetro admitido por el API
+    return this.httpClient.get<IRresponse>(this.baseUrl + '?page=' + numPagina)
   }
 }

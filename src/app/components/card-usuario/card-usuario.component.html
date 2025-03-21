@@ -3,6 +3,17 @@
         <img class="imagenesUsuario rounded-circle" [src]="miUsuario.image" [alt]="miUsuario.username">
     </figure>
     <p class="d-flex justify-content-center">{{miUsuario.first_name}} {{miUsuario.last_name}}</p>
+    <div class="d-flex justify-content-center gap-3">
+        <div class="justify-content-center">
+            <img class="img-fluid" src="./assets/detalle.png" alt="Ver detalle" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Ver detalle</p>
+        </div>
+        <div class="align-items-center">
+            <img class="img-fluid" src="./assets/actualizar.png" alt="Actualizar" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Actualizar</p>
+        </div>
+        <div>
+            <img class="img-fluid" src="./assets/eliminar.png" alt="Eliminar" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Borrar</p>
+        </div>
+    </div>
 </div>
 
 

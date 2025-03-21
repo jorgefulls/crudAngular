@@ -1,10 +1,20 @@
-<section class="container">
+<section class="usuarios">
     <div class="row justify-content-center g-5">
         <!-- Recorrer el array de usuarios devuelto por el Servicio -->
         @for(usuario of arrUsuariosObservable; track usuario._id) {
             <article class="col-12 col-md-6 col-lg-3">
                 <app-card-usuario [miUsuario]="usuario"></app-card-usuario>
             </article>
+        } @empty {
+            <h3>No existen Usuarios</h3>
+        }
+    </div>
+
+    <!-- Pinto los botones de acceso a las páginas disponibles en el API -->
+    <div class="d-flex justify-content-between py-5">
+        @for(pagina of arrayPaginas; track arrayPaginas.values) {
+            <!-- Pinto un botón que navegará a la página cuyo número está contenido en la variable pagina de @for-->
+            <button class="btn btn-warning" (click)="gotoPage(pagina)">{{pagina}}</button>
         }
     </div>
 </section>

@@ -22,6 +22,7 @@ export class ListadoUsuariosComponent {
       // Acierto
       next: (data: IRresponse) => {
         this.arrUsuariosObservable = data.results
+        //console.log("Se han obtenido los usuarios del API!!!!!!")
         //console.log(this.arrUsuariosObservable)
       },
       // Error

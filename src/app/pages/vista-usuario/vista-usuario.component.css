@@ -1,0 +1,16 @@
+.imagenUsuario {
+    min-height: 400px;
+    max-height: 400px;
+    object-position: center center;
+    object-fit: contain;
+    display: block;
+}
+
+.row, .flex-wrap, .border-end {
+    max-height: 400px;
+}
+
+.texto-accion {
+    font-size: 14px;
+    color: gray;
+}

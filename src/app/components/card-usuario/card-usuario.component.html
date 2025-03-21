@@ -2,17 +2,27 @@
     <figure class="d-flex justify-content-center">
         <img class="imagenesUsuario rounded-circle" [src]="miUsuario.image" [alt]="miUsuario.username">
     </figure>
-    <p class="d-flex justify-content-center">{{miUsuario.first_name}} {{miUsuario.last_name}}</p>
-    <div class="d-flex justify-content-center gap-3">
-        <div class="justify-content-center">
-            <img class="img-fluid" src="./assets/detalle.png" alt="Ver detalle" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Ver detalle</p>
-        </div>
-        <div class="align-items-center">
-            <img class="img-fluid" src="./assets/actualizar.png" alt="Actualizar" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Actualizar</p>
-        </div>
-        <div>
-            <img class="img-fluid" src="./assets/eliminar.png" alt="Eliminar" [routerLink]="['/user', 'miUsuario._id']" class="cursor-pointer"><p>Borrar</p>
-        </div>
+    <p class="d-flex justify-content-center fw-normal">{{miUsuario.first_name}} {{miUsuario.last_name}}</p>
+    <div class="d-flex justify-content-center">
+
+        <button type="button" [routerLink]="['/user', miUsuario._id]"
+            class="texto-accion flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-white text-secondary py-2 btn btn-primary border-0">
+            <img src="./assets/eliminar.png" class="img-fluid" alt="Icono">
+            <span>Ver detalle</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user', miUsuario._id]"
+            class="texto-accion flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-white text-secondary border border-0 py-2 btn btn-primary border-0">
+            <img src="./assets/eliminar.png" class="img-fluid" alt="Icono">
+            <span>Actualizar</span>
+        </button>
+
+        <button type="button" onclick="alert('Se va a eliminarl el usuario ... FALTA NOMBRE');"
+            class="texto-accion flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-white text-secondary border border-0 py-2 btn btn-primary border-0">
+            <img src="./assets/eliminar.png" class="img-fluid" alt="Icono">
+            <span>Borrar</span>
+        </button>
+
     </div>
 </div>
 

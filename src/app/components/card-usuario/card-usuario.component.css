@@ -4,5 +4,9 @@
     object-position: center center;
     object-fit: contain;
     display: block;
+}
 
+.texto-accion {
+    font-size: 14px;
+    color: gray;
 }

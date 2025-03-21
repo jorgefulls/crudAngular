@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IRresponse } from '../interfaces/irresponse.interface';
 import { Observable } from 'rxjs';
+import { IUsuario } from '../interfaces/iusuario.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,20 @@ export class UsuariosService {
   private baseUrl: string = "https://peticiones.online/api/users"
 
   getAllObservable() : Observable<IRresponse> {
-    // Petición asíncrona nativa de Angular
+    // Petición asíncrona por defecto para recuperar el listado de usuarios
     return this.httpClient.get<IRresponse>(this.baseUrl)
   }
 
   getAllObservableN(numPagina: string) : Observable<IRresponse> {
-    // Petición asíncrona nativa de Angular utilizando un parámetro admitido por el API
-    return this.httpClient.get<IRresponse>(this.baseUrl + '?page=' + numPagina)
+    // Petición asíncrona para recuperar el listado de usuarios de una determinada página del API
+    return this.httpClient.get<IRresponse>(`${this.baseUrl}?page=${numPagina}`)
   }
+
+  getByIdObservable(id : string) : Observable<IUsuario> {
+    // Petición asíncrona para recuperar información de un Usuario concreto
+    return this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`)
+  }
+
+  
+
 }

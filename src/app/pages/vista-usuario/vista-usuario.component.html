@@ -1,1 +1,32 @@
-<p>vista-usuario works!</p>
+<section class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 d-flex flex-wrap">
+            <div class="border-end border-2 border-dark me-1 px-5">
+                <figure>
+                    <img class="imagenUsuario rounded-circle" [src]="elUsuario.image" [alt]="elUsuario.username">
+                </figure>
+            </div>
+
+            <div class="px-5 py-5">
+                <p>{{elUsuario.first_name}}</p>
+                <p>{{elUsuario.last_name}}</p>
+                <p><strong>Nombre de usaurio:</strong> {{elUsuario.username}}</p>
+                <p><strong>Email: </strong> {{elUsuario.email}}</p>
+
+                <div class="d-flex bg-white rounded overflow-hidden">
+                    <button type="button" onclick="alert('Se va a eliminarl el usuario ... FALTA NOMBRE');"
+                        class="border rounded-start flex-grow-1 d-flex justify-content-center align-items-center bg-white text-danger border border-dark py-3 px-4">
+                        <span>Eliminar</span>
+                    </button>
+                    <button type="button" class="border flex-grow-1 d-flex justify-content-center align-items-center bg-white text-primary border border-dark py-3 px-4">
+                        <span>Actualizar</span>
+                    </button>
+                    <button type="button" [routerLink]="['/home']" class="border rounded-end flex-grow-1 d-flex justify-content-center align-items-center bg-white text-success border border-dark py-3 px-4">
+                        <span>Volver a listado</span>
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</section>

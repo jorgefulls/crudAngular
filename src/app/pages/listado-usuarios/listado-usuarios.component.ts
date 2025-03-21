@@ -27,7 +27,7 @@ export class ListadoUsuariosComponent {
         this.arrUsuariosObservable = data.results
         this.paginasAPI = data.total_pages
 
-        // Construyo un array con números secuenciales de las páginas disponibles en el API
+        // Construyo un array auxiliar con números secuenciales de las páginas totales disponibles en el API [1,2,3,4,...]
         this.arrayPaginas = Array(this.paginasAPI).fill(1).map((x, i) => i + 1)
       },
       // Error

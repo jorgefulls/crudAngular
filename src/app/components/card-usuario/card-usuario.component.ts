@@ -11,5 +11,20 @@ import { RouterLink } from '@angular/router';
 })
 
 export class CardUsuarioComponent {
-  @Input() miUsuario!:IUsuario
+  @Input() miUsuario: IUsuario | any =
+  {
+    _id : '',
+    id : 0,
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    image: '',
+    password: ''
+  }
+   //| any  // Se pone any también para gestionar el undefined de cuando se pulsa en borrar un usuario
+
+  deleteUser(id: string) {
+    alert(`Vas a borrar al usuario ${this.miUsuario.first_name} ${this.miUsuario.last_name}`)
+  }
 }

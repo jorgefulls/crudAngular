@@ -14,7 +14,7 @@
                 <p><strong>Email: </strong> {{elUsuario.email}}</p>
 
                 <div class="d-flex bg-white rounded overflow-hidden">
-                    <button type="button" onclick="alert('Se va a eliminarl el usuario ... FALTA NOMBRE');"
+                    <button type="button" (click)="deleteUser(elUsuario._id)"
                         class="border rounded-start flex-grow-1 d-flex justify-content-center align-items-center bg-white text-danger border border-dark py-3 px-4">
                         <span>Eliminar</span>
                     </button>

@@ -11,13 +11,13 @@
             <span>Ver detalle</span>
         </button>
 
-        <button type="button" [routerLink]="['/user', miUsuario._id]"
+        <button type="button" [routerLink]="['/updateuser', miUsuario._id]"
             class="texto-accion flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-white text-secondary border border-0 py-2 btn btn-primary border-0">
             <img src="./assets/eliminar.png" class="img-fluid" alt="Icono">
             <span>Actualizar</span>
         </button>
 
-        <button type="button" onclick="alert('Se va a eliminarl el usuario ... FALTA NOMBRE');"
+        <button type="button" (click)="deleteUser(miUsuario._id)"
             class="texto-accion flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-white text-secondary border border-0 py-2 btn btn-primary border-0">
             <img src="./assets/eliminar.png" class="img-fluid" alt="Icono">
             <span>Borrar</span>

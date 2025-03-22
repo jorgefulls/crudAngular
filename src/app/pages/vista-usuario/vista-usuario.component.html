@@ -18,7 +18,8 @@
                         class="border rounded-start flex-grow-1 d-flex justify-content-center align-items-center bg-white text-danger border border-dark py-3 px-4">
                         <span>Eliminar</span>
                     </button>
-                    <button type="button" class="border flex-grow-1 d-flex justify-content-center align-items-center bg-white text-primary border border-dark py-3 px-4">
+                    <button type="button" (click)="updateUser(elUsuario._id)"
+                        class="border flex-grow-1 d-flex justify-content-center align-items-center bg-white text-primary border border-dark py-3 px-4">
                         <span>Actualizar</span>
                     </button>
                     <button type="button" [routerLink]="['/home']" class="border rounded-end flex-grow-1 d-flex justify-content-center align-items-center bg-white text-success border border-dark py-3 px-4">

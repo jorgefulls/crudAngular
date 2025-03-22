@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { UsuariosService } from '../../services/usuarios.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -12,6 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class VistaUsuarioComponent {
   @Input() idUsuario: string = ""
+  router = inject(Router)
+  usuariosService = inject(UsuariosService)
 
   elUsuario : IUsuario | any =
   {
@@ -25,7 +27,6 @@ export class VistaUsuarioComponent {
     password: ''
   }
 
-  usuariosService = inject(UsuariosService)
 
   ngOnInit() {
     // Llamar al Servicio para traernos los datos de este Usuario
@@ -40,6 +41,10 @@ export class VistaUsuarioComponent {
         alert('Error en la obtención de los datos del Usuario.')
       }
     })
+  }
+
+  updateUser(idUsuario: string) {
+    this.router.navigate(['/updateuser/', idUsuario])
   }
 
   deleteUser(id: string) {

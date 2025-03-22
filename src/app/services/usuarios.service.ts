@@ -28,6 +28,4 @@ export class UsuariosService {
     return this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`)
   }
 
-  
-
 }

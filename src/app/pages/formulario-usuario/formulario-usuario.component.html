@@ -1,7 +1,9 @@
 <div class="container my-2">
     <h2>{{title}}</h2>
-    <form class="needs-validation bg-white shadow rounded p-4" [formGroup] = "usuarioForm" (ngSubmit) = "getDataForm()">
-        <input type="hidden" formControlName="_id">
+    <form class="needs-validation bg-white shadow rounded p-4" [formGroup]="usuarioForm" (ngSubmit)="getDataForm()">
+
+        <input type="hidden" formControlName="_id" id="_id">
+        
         <div class="mb-3">
             <label for="first_name" class="form-label fw-bold">Nombre:</label>
             <input type="text" id="first_name" formControlName="first_name" class="form-control border-dark shadow-sm" placeholder="Introduzca nombre de usuario" required>
@@ -35,8 +37,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="imagen" class="form-label fw-bold">Imagen:</label>
-            <input type="url" id="imagen" formControlName="imagen" class="form-control border-dark shadow-sm" placeholder="Introduzca URL de foto de usuario" required>
+            <label for="image" class="form-label fw-bold">Imagen:</label>
+            <input type="url" id="image" formControlName="image" class="form-control border-dark shadow-sm" placeholder="Introduzca URL de foto de usuario" required>
             <div class="invalid-feedback">
                 Por favor, ingrese una URL de imagen válida.
             </div>
@@ -50,8 +52,9 @@
             </div>
         </div>
 
-        <div class="mb-3">
-            <input type="submit" class="form-control border-dark shadow-sm" [value]="usuarioForm.get('_id')?.value ? 'Actualizar' : 'Guardar' ">
+        <div>
+            <input type="submit" class="border-dark shadow-sm btn btn-sm btn-success" [value]="usuarioForm.get('_id')?.value ? 'Actualizar' : 'Guardar' ">
         </div>
+
     </form>
 </div>

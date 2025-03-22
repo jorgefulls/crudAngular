@@ -10,26 +10,15 @@ import { UsuariosService } from '../../services/usuarios.service';
   templateUrl: './formulario-usuario.component.html',
   styleUrl: './formulario-usuario.component.css'
 })
+
 export class FormularioUsuarioComponent {
   @Input() idUsuario: string = ""
   usuarioForm: FormGroup = new FormGroup({},[])
-  usuario: IUsuario = 
-  {
-    _id : '',
-    id : 0,
-    first_name: '',
-    last_name: '',
-    username: '',
-    email: '',
-    image: '',
-    password: ''
-  }
+  usuario!: IUsuario
   usuariosService = inject(UsuariosService)
   title: string = "NUEVO USUARIO"
 
   ngOnInit() {
-    console.log(this.idUsuario)
-
     // Si recibimos id, tengo que llamar a getById y pintar los datos en el formulario
     if (this.idUsuario) {
       this.title = "ACTUALIZAR USUARIO"
@@ -37,8 +26,9 @@ export class FormularioUsuarioComponent {
       this.usuariosService.getByIdObservable(this.idUsuario).subscribe({
         // Acierto
         next: (data: IUsuario) => {
-          console.log(data)
           this.usuario = data
+          console.log(this.usuario)
+          this.sincronizarFormulario()
         },
         // Error
         error: (error) => {
@@ -46,42 +36,31 @@ export class FormularioUsuarioComponent {
           alert('Error en la obtención de los datos del Usuario.')
         }
       })
+      this.sincronizarFormulario()
+    } else {
+      this.sincronizarFormulario()
     }
+  }
 
+  sincronizarFormulario() {
     this.usuarioForm = new FormGroup({
-      _id: new FormControl(this.idUsuario || null, [
-        Validators.required,
-        Validators.minLength(2)]),
-      id: new FormControl(this.usuario?.id || null, [
-        Validators.required,
-        Validators.minLength(2)]),
-      firs_name: new FormControl(this.usuario?.first_name || "", [
-        Validators.required,
-        Validators.minLength(3)]),
-      last_name: new FormControl(this.usuario?.last_name || "", [
-        Validators.required,
-        Validators.minLength(3)]),
-      email: new FormControl(this.usuario?.email || "", [
-        Validators.required,
-        Validators.email
-      ]),
-      image: new FormControl(this.usuario?.image || "", [
-        Validators.required,
-        Validators.pattern('^https?://')
-      ]),
-      username: new FormControl(this.usuario?.username || "", [
-        Validators.required,
-        Validators.minLength(3)]),
-      password  : new FormControl(this.usuario?.password || "", [
-        Validators.required,
-        Validators.minLength(8)
-      ])
+      _id: new FormControl(this.idUsuario || null, []),
+      id: new FormControl(this.usuario?.id || 0, []),
+      first_name: new FormControl(this.usuario?.first_name || "", [Validators.required]),
+      last_name: new FormControl(this.usuario?.last_name || "", [Validators.required]),
+      email: new FormControl(this.usuario?.email || "", [Validators.required, Validators.email]),
+      image: new FormControl(this.usuario?.image || "", [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+      username: new FormControl(this.usuario?.username || "", [Validators.required]),
+      password  : new FormControl(this.usuario?.password || "", [Validators.required])
     },[])
-
-    // Si no, recoger los datos y después insertarlos con ayuda del servicio
   }
 
   getDataForm() {
-
+    //console.log(this.usuarioForm.value)
+    if (this.usuarioForm.value._id) {
+      // Actualizando
+    } else {
+      // Insertando
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { UsuariosService } from '../../services/usuarios.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -12,12 +12,23 @@ import { RouterLink } from '@angular/router';
 })
 export class VistaUsuarioComponent {
   @Input() idUsuario: string = ""
-
-  elUsuario! : IUsuario
+  router = inject(Router)
   usuariosService = inject(UsuariosService)
 
+  elUsuario : IUsuario | any =
+  {
+    _id : '',
+    id : 0,
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    image: '',
+    password: ''
+  }
+
+
   ngOnInit() {
-    console.log(this.idUsuario)
     // Llamar al Servicio para traernos los datos de este Usuario
     this.usuariosService.getByIdObservable(this.idUsuario).subscribe({
       // Acierto
@@ -30,5 +41,13 @@ export class VistaUsuarioComponent {
         alert('Error en la obtención de los datos del Usuario.')
       }
     })
+  }
+
+  updateUser(idUsuario: string) {
+    this.router.navigate(['/updateuser/', idUsuario])
+  }
+
+  deleteUser(id: string) {
+    alert(`Vas a borrar al usuario ${this.elUsuario.first_name} ${this.elUsuario.last_name}`)
   }
 }

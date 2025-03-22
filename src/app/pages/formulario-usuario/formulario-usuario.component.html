@@ -1,1 +1,60 @@
-<p>formulario-usuario works!</p>
+<div class="container my-2">
+    <h2>{{title}}</h2>
+    <form class="needs-validation bg-white shadow rounded p-4" [formGroup]="usuarioForm" (ngSubmit)="getDataForm()">
+
+        <input type="hidden" formControlName="_id" id="_id">
+        
+        <div class="mb-3">
+            <label for="first_name" class="form-label fw-bold">Nombre:</label>
+            <input type="text" id="first_name" formControlName="first_name" class="form-control border-dark shadow-sm" placeholder="Introduzca nombre de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese su nombre.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label fw-bold">Apellidos:</label>
+            <input type="text" id="last_name" formControlName="last_name" class="form-control border-dark shadow-sm" placeholder="Introduzca apellidos de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese sus apellidos.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label fw-bold">Username:</label>
+            <input type="text" id="username" formControlName="username" class="form-control border-dark shadow-sm" placeholder="Introduzca el username de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese un nombre de usuario.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label fw-bold">Email:</label>
+            <input type="email" id="email" formControlName="email" class="form-control border-dark shadow-sm" placeholder="Introduzca el email de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese una dirección de correo válida.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label fw-bold">Imagen:</label>
+            <input type="url" id="image" formControlName="image" class="form-control border-dark shadow-sm" placeholder="Introduzca URL de foto de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese una URL de imagen válida.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label fw-bold">Password:</label>
+            <input type="password" id="password" formControlName="password" class="form-control border-dark shadow-sm" placeholder="Introduzca la password de usuario" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese una contraseña.
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" class="border-dark shadow-sm btn btn-sm btn-success" [value]="usuarioForm.get('_id')?.value ? 'Actualizar' : 'Guardar' ">
+        </div>
+
+    </form>
+</div>

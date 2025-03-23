@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IRresponse } from '../interfaces/irresponse.interface';
 import { Observable } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { IUsuario } from '../interfaces/iusuario.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,22 @@ export class UsuariosService {
   getByIdObservable(id : string) : Observable<IUsuario> {
     // Petición asíncrona para recuperar información de un Usuario concreto
     return this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`)
+  }
+
+  delete(id: string) : Promise<IUsuario> {
+    return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`));
+  }
+
+  update(usuario: IUsuario): Promise<IUsuario> {
+    //destructuring
+    let { _id, ...usuarioBody } = usuario;
+    return lastValueFrom(this.httpClient.put<IUsuario>(`${this.baseUrl}/${_id}`, usuarioBody))
+  }
+
+  insert(usuario: IUsuario): Promise<IUsuario> {
+    let { _id, ...usuarioBody } = usuario;
+    console.log('Servicio: Insertando...')
+    return lastValueFrom(this.httpClient.post<IUsuario>(this.baseUrl, usuarioBody))
   }
 
 }

@@ -2,6 +2,9 @@ import { Component, inject, Input} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Router } from '@angular/router';
+import { toast } from 'ngx-sonner';
+
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -17,13 +20,14 @@ export class FormularioUsuarioComponent {
   usuario!: IUsuario
   usuariosService = inject(UsuariosService)
   title: string = "NUEVO USUARIO"
+  router = inject(Router);
 
   ngOnInit() {
     // Si recibimos id, tengo que llamar a getById y pintar los datos en el formulario
     if (this.idUsuario) {
       this.title = "ACTUALIZAR USUARIO"
       // LLamamos al servicio y cargamos los datos del usuario
-      this.usuariosService.getByIdObservable(this.idUsuario).subscribe({
+       let response = this.usuariosService.getByIdObservable(this.idUsuario).subscribe({
         // Acierto
         next: (data: IUsuario) => {
           this.usuario = data
@@ -55,12 +59,30 @@ export class FormularioUsuarioComponent {
     },[])
   }
 
-  getDataForm() {
-    //console.log(this.usuarioForm.value)
-    if (this.usuarioForm.value._id) {
-      // Actualizando
-    } else {
-      // Insertando
+  async getDataForm() {
+    console.log('Procesando el formulario...')
+    let response: IUsuario | any
+    try {
+      if (this.usuarioForm.value._id) {
+        // Actualizando...
+        console.log('Actualizando...')
+        response = await this.usuariosService.update(this.usuarioForm.value);
+      } else {
+        // Insertando...
+        console.log('Insertando...')
+        response = await this.usuariosService.insert(this.usuarioForm.value)
+        this.router.navigate(['/home'])
+      }
+
+      if (response._id) {
+        toast('Actualización realizada correctamente!')
+      }
+
+    } catch (msg: any) {
+      console.log('Se produce error')
+      if (msg.status === 400) {
+        msg.error.forEach((oneError: any) => toast.error(oneError.message))
+      }
     }
   }
 }

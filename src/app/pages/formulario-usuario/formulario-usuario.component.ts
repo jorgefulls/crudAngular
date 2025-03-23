@@ -1,6 +1,7 @@
 import { Component, inject, Input} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUsuario } from '../../interfaces/iusuario.interface';
+import { IError } from '../../interfaces/ierror.interface';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Router } from '@angular/router';
 import { toast } from 'ngx-sonner';
@@ -31,7 +32,6 @@ export class FormularioUsuarioComponent {
         // Acierto
         next: (data: IUsuario) => {
           this.usuario = data
-          console.log(this.usuario)
           this.sincronizarFormulario()
         },
         // Error
@@ -52,32 +52,51 @@ export class FormularioUsuarioComponent {
       id: new FormControl(this.usuario?.id || 0, []),
       first_name: new FormControl(this.usuario?.first_name || "", [Validators.required]),
       last_name: new FormControl(this.usuario?.last_name || "", [Validators.required]),
-      email: new FormControl(this.usuario?.email || "", [Validators.required, Validators.email]),
-      image: new FormControl(this.usuario?.image || "", [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+      email: new FormControl(this.usuario?.email || "", [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]),
+      image: new FormControl(this.usuario?.image || "", [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),      
       username: new FormControl(this.usuario?.username || "", [Validators.required]),
       password  : new FormControl(this.usuario?.password || "", [Validators.required])
     },[])
   }
 
+  checkControl(controlName: string, errorName: string): boolean | undefined {
+    return this.usuarioForm.get(controlName)?.hasError(errorName) && this.usuarioForm.get(controlName)?.touched
+  }
+
   async getDataForm() {
-    console.log('Procesando el formulario...')
-    let response: IUsuario | any
+    let response: IUsuario | IError | any
     try {
       if (this.usuarioForm.value._id) {
-        // Actualizando...
-        console.log('Actualizando...')
+
+        // Actualizando Usuario...
+        
         response = await this.usuariosService.update(this.usuarioForm.value);
+
+        // Procesamos la respuesta asíncrona
+        if (response.hasOwnProperty('error')){
+          let respuesta = response as IError
+          toast(respuesta.error)
+        } else {
+          // Como el API devuelve una respuesta ficticia y no provoca una actualización realmente, simplemente informamos de que se ha actualizado correcto y recargamos la HOME.
+          toast(`Usuario ${this.usuario.first_name} ${this.usuario.last_name} ACTUALIZADO!!`)
+          this.router.navigate(['/home'])
+        }
+
       } else {
-        // Insertando...
-        console.log('Insertando...')
+
+        // Insertando Nuevo Usuario...
+
         response = await this.usuariosService.insert(this.usuarioForm.value)
-        this.router.navigate(['/home'])
-      }
 
-      if (response._id) {
-        toast('Actualización realizada correctamente!')
+        // Procesamos la respuesta asíncrona
+        if (response.hasOwnProperty('id')){
+          // Como el API devuelve una respuesta ficticia con un campo id informado y no provoca una inserción realmente, simplemente informamos de que se ha insertado correctamente y recargamos la HOME.
+          toast(`Usuario creado con éxito!!`)
+          this.router.navigate(['/home'])
+        } else {
+          toast('Hubo un error durante la creación del usuario')
+        }
       }
-
     } catch (msg: any) {
       console.log('Se produce error')
       if (msg.status === 400) {

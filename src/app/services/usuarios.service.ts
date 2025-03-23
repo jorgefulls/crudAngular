@@ -4,6 +4,7 @@ import { IRresponse } from '../interfaces/irresponse.interface';
 import { Observable } from 'rxjs';
 import { lastValueFrom } from 'rxjs';
 import { IUsuario } from '../interfaces/iusuario.interface';
+import { IError } from '../interfaces/ierror.interface';
 
 
 @Injectable({
@@ -30,19 +31,19 @@ export class UsuariosService {
     return this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`)
   }
 
-  delete(id: string) : Promise<IUsuario> {
+  delete(id: string) : Promise<IUsuario | IError> {
     return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`));
   }
 
-  update(usuario: IUsuario): Promise<IUsuario> {
-    //destructuring
+  update(usuario: IUsuario): Promise<IUsuario | IError> {
+    // Destructuring.
+    // En este caso el API puede devolver un objeto de tipo Usuari o de tipo Error
     let { _id, ...usuarioBody } = usuario;
     return lastValueFrom(this.httpClient.put<IUsuario>(`${this.baseUrl}/${_id}`, usuarioBody))
   }
 
   insert(usuario: IUsuario): Promise<IUsuario> {
     let { _id, ...usuarioBody } = usuario;
-    console.log('Servicio: Insertando...')
     return lastValueFrom(this.httpClient.post<IUsuario>(this.baseUrl, usuarioBody))
   }
 
